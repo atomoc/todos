@@ -23,6 +23,8 @@ const CONNECTION_ISSUE_TIMEOUT = 5000;
 const showConnectionIssue = new ReactiveVar(false);
 
 Meteor.startup(() => {
+    T9n.setLanguage('ru');
+    TAPi18n.setLanguage('ru');
   // Only show the connection error box if it has been 5 seconds since
   // the app started
   setTimeout(() => {
@@ -90,7 +92,7 @@ Template.App_body.helpers({
     },
   },
   languages() {
-    return _.keys(TAPi18n.getLanguages());
+    return _.keys(TAPi18n.getLanguages()).reverse();
   },
   isActiveLanguage(language) {
     return (TAPi18n.getLanguage() === language);
