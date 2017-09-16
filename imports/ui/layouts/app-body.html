@@ -45,20 +45,20 @@
             {{_ 'layouts.appBody.newList'}}
           </a>
 
-          {{#each list in lists}}
-            <a href="{{pathFor 'Lists.show' _id=list._id}}" title="{{list.name}}"
-                class="list-todo {{activeListClass list}}">
-              {{#if list.userId}}
+          {{#sortable items=lists options=playersOptions }}
+            <a href="{{pathFor 'Lists.show' _id=_id}}" title="{{name}}"
+                class="list-todo {{activeListClass _id}}">
+              {{#if userId}}
                 <span class="icon-lock"></span>
               {{/if}}
 
-              {{#if list.incompleteCount}}
-                <span class="count-list">{{list.incompleteCount}}</span>
+              {{#if incompleteCount}}
+                <span class="count-list">{{incompleteCount}}</span>
               {{/if}}
 
-              {{list.name}}
+              {{name}} {{order}}
             </a>
-          {{/each}}
+          {{/sortable}}
         </div>
       </section>
 

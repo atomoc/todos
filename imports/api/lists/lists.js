@@ -3,6 +3,7 @@ import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { Factory } from 'meteor/dburles:factory';
 import { TAPi18n } from 'meteor/tap:i18n';
 
+
 import { Todos } from '../todos/todos.js';
 
 class ListsCollection extends Mongo.Collection {
@@ -29,6 +30,8 @@ class ListsCollection extends Mongo.Collection {
 }
 
 export const Lists = new ListsCollection('lists');
+Sortable.collections = ["lists"];
+
 
 // Deny all client-side updates since we will be using methods to manage this collection
 Lists.deny({
@@ -41,6 +44,7 @@ Lists.schema = new SimpleSchema({
   _id: { type: String, regEx: SimpleSchema.RegEx.Id },
   name: { type: String },
   incompleteCount: { type: Number, defaultValue: 0 },
+  order: { type: Number, defaultValue: 0 },
   userId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
 });
 
@@ -53,6 +57,7 @@ Lists.publicFields = {
   name: 1,
   incompleteCount: 1,
   userId: 1,
+  order: 1,
 };
 
 Factory.define('list', Lists, {});

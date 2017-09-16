@@ -70,9 +70,9 @@ Template.App_body.helpers({
       { userId: Meteor.userId() },
   ] }, {sort: {userId: -1}});
   },
-  activeListClass(list) {
+  activeListClass(id) {
     const active = ActiveRoute.name('Lists.show')
-      && FlowRouter.getParam('_id') === list._id;
+      && FlowRouter.getParam('_id') === id;
 
     return active && 'active';
   },
@@ -96,7 +96,7 @@ Template.App_body.helpers({
   },
   isActiveLanguage(language) {
     return (TAPi18n.getLanguage() === language);
-  },
+  }
 });
 
 Template.App_body.events({
