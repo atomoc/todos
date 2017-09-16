@@ -13,6 +13,12 @@ AccountsTemplates.configure({
   defaultLayoutRegions: {},
 });
 
+const pwd = AccountsTemplates.removeField('password');
+AccountsTemplates.addField(Object.assign(pwd, {
+    minLength: 3,
+    re: /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{3,}/
+}));
+
 AccountsTemplates.configureRoute('signIn', {
   name: 'signin',
   path: '/signin',

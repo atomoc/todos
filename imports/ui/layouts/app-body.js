@@ -68,7 +68,7 @@ Template.App_body.helpers({
     return Lists.find({ $or: [
       { userId: { $exists: false } },
       { userId: Meteor.userId() },
-    ] });
+  ] }, {sort: {userId: -1}});
   },
   activeListClass(list) {
     const active = ActiveRoute.name('Lists.show')
