@@ -30,7 +30,6 @@ class ListsCollection extends Mongo.Collection {
 }
 
 export const Lists = new ListsCollection('lists');
-Sortable.collections = ["lists"];
 
 
 // Deny all client-side updates since we will be using methods to manage this collection
@@ -44,7 +43,6 @@ Lists.schema = new SimpleSchema({
   _id: { type: String, regEx: SimpleSchema.RegEx.Id },
   name: { type: String },
   incompleteCount: { type: Number, defaultValue: 0 },
-  order: { type: Number, defaultValue: 0 },
   userId: { type: String, regEx: SimpleSchema.RegEx.Id, optional: true },
 });
 
@@ -57,7 +55,6 @@ Lists.publicFields = {
   name: 1,
   incompleteCount: 1,
   userId: 1,
-  order: 1,
 };
 
 Factory.define('list', Lists, {});

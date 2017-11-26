@@ -9,6 +9,7 @@ import { $ } from 'meteor/jquery';
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { TAPi18n } from 'meteor/tap:i18n';
+import Moment from 'moment';
 
 import './lists-show.html';
 
@@ -109,6 +110,8 @@ Template.Lists_show.helpers({
   },
 });
 
+var times = [];
+
 Template.Lists_show.events({
   'click .js-cancel'(event, instance) {
     instance.state.set('editing', false);
@@ -184,6 +187,26 @@ Template.Lists_show.events({
       text: $input.val(),
     }, displayError);
 
+    if (!times[this.list().name]) {
+
+        times[this.list().name] = new Date().getTime();
+
+        Meteor.call('userNotification', 'Добавлен пункт "'+$input.val()+'"', 'Список "'+this.list().name+'"', this.list().userId, this.list().name);
+
+    } else {
+
+        var time_this = new Date().getTime();
+
+        if (time_this - times[this.list().name] > 1000*60*1){
+
+            times[this.list().name] = new Date().getTime();
+
+            Meteor.call('userNotification', 'Добавлен пункт "'+$input.val()+'"', 'Список "'+this.list().name+'"', this.list().userId, this.list().name);
+
+        }
+    }
+
     $input.val('');
+
   },
 });

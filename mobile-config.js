@@ -2,11 +2,11 @@
 /* eslint-disable quote-props */
 
 App.info({
-  name: 'Todos',
-  description: 'A simple todo list app built in Meteor.',
-  author: 'Percolate Studio Team',
-  email: 'us@percolatestudio.com',
-  website: 'http://percolatestudio.com',
+  name: 'Забудем',
+  description: 'Забудем, если не сделаем.',
+  author: 'Сергей Савельев',
+  email: 'sergej@eyrini.ru',
+  website: 'https://zabudem.ru',
   version: '0.0.1',
 });
 
@@ -42,3 +42,7 @@ App.launchScreens({
 
 App.setPreference('StatusBarOverlaysWebView', 'false');
 App.setPreference('StatusBarBackgroundColor', '#000000');
+
+App.configurePlugin('phonegap-plugin-push', {
+  SENDER_ID: 948018073243
+});

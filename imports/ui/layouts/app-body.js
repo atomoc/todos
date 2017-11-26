@@ -23,8 +23,23 @@ const CONNECTION_ISSUE_TIMEOUT = 5000;
 const showConnectionIssue = new ReactiveVar(false);
 
 Meteor.startup(() => {
+
+    Push.Configure({
+      android: {
+        senderID: 948018073243,
+        alert: true,
+        badge: true,
+        sound: true,
+        vibrate: true,
+        clearNotifications: true,
+        // icon: '',
+        // iconColor: '#990000'
+      }
+    });
+
     T9n.setLanguage('ru');
     TAPi18n.setLanguage('ru');
+
   // Only show the connection error box if it has been 5 seconds since
   // the app started
   setTimeout(() => {
@@ -34,6 +49,7 @@ Meteor.startup(() => {
 
     // Show the connection error box
     showConnectionIssue.set(true);
+
   }, CONNECTION_ISSUE_TIMEOUT);
 });
 
@@ -43,7 +59,7 @@ Template.App_body.onCreated(function appBodyOnCreated() {
 
   this.state = new ReactiveDict();
   this.state.setDefault({
-    menuOpen: false,
+    menuOpen: true,
     userMenuOpen: false,
   });
 });
@@ -65,10 +81,7 @@ Template.App_body.helpers({
     return instance.state.get('userMenuOpen');
   },
   lists() {
-    return Lists.find({ $or: [
-      { userId: { $exists: false } },
-      { userId: Meteor.userId() },
-  ] }, {sort: {userId: -1}});
+    return Lists.find({}, {sort: {userId: -1}});
   },
   activeListClass(id) {
     const active = ActiveRoute.name('Lists.show')

@@ -54,6 +54,9 @@ export const setCheckedStatus = new ValidatedMethod({
   },
 });
 
+var times = [],
+    times_t = [];
+
 export const updateText = new ValidatedMethod({
   name: 'todos.updateText',
   validate: new SimpleSchema({
@@ -69,6 +72,36 @@ export const updateText = new ValidatedMethod({
       throw new Meteor.Error('todos.updateText.accessDenied',
         'Cannot edit todos in a private list that is not yours');
     }
+
+    // var oldtext = todo.text,
+    //     list = Lists.findOne(todo.listId);
+    //
+    // if (times_t[todoId]){
+    //     Meteor.clearTimeout(times_t[todoId]);
+    // }
+    //
+    // times_t[todoId] = Meteor.setTimeout(()=>{
+    //
+    //     if (!times[todo._id]) {
+    //
+    //         times[todo._id] = new Date().getTime();
+    //
+    //         Meteor.call('userNotification', 'Изменён пункт "'+oldtext+'" на "'+todo.text+'"', 'Список "'+list.name+'"', list.userId, list.name);
+    //
+    //     } else {
+    //
+    //         var time_this = new Date().getTime();
+    //
+    //         if (time_this - times[todo._id] > 1000*60*1){
+    //
+    //             times[todo._id] = new Date().getTime();
+    //
+    //             Meteor.call('userNotification', 'Изменён пункт "'+oldtext+'" на "'+todo.text+'"', 'Список "'+list.name+'"', list.userId, list.name);
+    //
+    //         }
+    //     }
+    //
+    // }, 3000);
 
     Todos.update(todoId, {
       $set: {
