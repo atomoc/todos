@@ -73,41 +73,53 @@ export const updateText = new ValidatedMethod({
         'Cannot edit todos in a private list that is not yours');
     }
 
-    // var oldtext = todo.text,
+    Todos.update(todoId, {
+      $set: {
+        text: (_.isUndefined(newText) ? null : newText),
+      },
+    });
+
+    // var oldtext = 123,
     //     list = Lists.findOne(todo.listId);
     //
-    // if (times_t[todoId]){
-    //     Meteor.clearTimeout(times_t[todoId]);
+    // if (times_t[todo.listId]){
+    //     clearTimeout(times_t[todo.listId]);
     // }
     //
-    // times_t[todoId] = Meteor.setTimeout(()=>{
+    // times_t[todo.listId] = setTimeout(()=>{
     //
-    //     if (!times[todo._id]) {
+    //     if (!times[todo.listId]) {
     //
-    //         times[todo._id] = new Date().getTime();
+    //         times[todo.listId] = new Date().getTime();
     //
-    //         Meteor.call('userNotification', 'Изменён пункт "'+oldtext+'" на "'+todo.text+'"', 'Список "'+list.name+'"', list.userId, list.name);
+    //         //Meteor.call('userNotification', 'Изменён пункт "'+oldtext+'" на "'+newText+'"', 'Список "'+list.name+'"', list.userId, list.name);
+    //         Push.send({
+    //             from: list.name,
+    //             title: 'Список "'+list.name+'"',
+    //             text: 'Изменён пункт "'+oldtext+'" на "'+newText+'"',
+    //             badge: 1,
+    //             query: {
+    //                 userId: list.userId
+    //             },
+    //         });
+    //         //console.log('Изменён пункт "'+oldtext+'" на "'+newText+'"');
     //
     //     } else {
     //
     //         var time_this = new Date().getTime();
     //
-    //         if (time_this - times[todo._id] > 1000*60*1){
+    //         if (time_this - times[todo.listId] > 1000*60*1){
     //
-    //             times[todo._id] = new Date().getTime();
+    //             times[todo.listId] = new Date().getTime();
     //
-    //             Meteor.call('userNotification', 'Изменён пункт "'+oldtext+'" на "'+todo.text+'"', 'Список "'+list.name+'"', list.userId, list.name);
+    //             //Meteor.call('userNotification', 'Изменён пункт "'+oldtext+'" на "'+newText+'"', 'Список "'+list.name+'"', list.userId, list.name);
+    //             console.log('Изменён пункт "'+oldtext+'" на "'+newText+'"');
     //
     //         }
     //     }
     //
     // }, 3000);
 
-    Todos.update(todoId, {
-      $set: {
-        text: (_.isUndefined(newText) ? null : newText),
-      },
-    });
   },
 });
 
@@ -125,6 +137,14 @@ export const remove = new ValidatedMethod({
     }
 
     Todos.remove(todoId);
+
+    var todos_c = Todos.find({listId: todo.listId}).count(),
+        list = Lists.findOne(todo.listId);
+
+    if (!todos_c){
+        Meteor.call('sendEmail', 'keydena@yandex.ru', 'Выполнен список "'+list.name+'"', 'Не забудем ;)');
+    }
+
   },
 });
 

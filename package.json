@@ -14,6 +14,7 @@
     "autoprefixer": "^6.4.1",
     "babel-runtime": "^6.18.0",
     "bcrypt": "^1.0.3",
+    "cordova-plugin-device": "^1.1.6",
     "faker": "^3.0.1",
     "moment": "^2.19.2",
     "phonegap-plugin-push": "^2.1.1"

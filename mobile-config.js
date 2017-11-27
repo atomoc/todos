@@ -2,12 +2,13 @@
 /* eslint-disable quote-props */
 
 App.info({
-  name: 'Забудем',
-  description: 'Забудем, если не сделаем.',
-  author: 'Сергей Савельев',
-  email: 'sergej@eyrini.ru',
-  website: 'https://zabudem.ru',
-  version: '0.0.1',
+    id: 'com.idvqze4o4fmojp1vxyybb',
+    name: 'Забудем',
+    description: 'Забудем, если не сделаем.',
+    author: 'Сергей Савельев',
+    email: 'sergej@eyrini.ru',
+    website: 'https://zabudem.ru',
+    version: '0.0.1',
 });
 
 App.icons({

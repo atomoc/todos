@@ -187,21 +187,26 @@ Template.Lists_show.events({
       text: $input.val(),
     }, displayError);
 
-    if (!times[this.list().name]) {
+    var notId = [];
+    for(var i=0; i<this.list()._id.length; i++) {
+        notId[i] = this.list()._id.charCodeAt(i)
+    } notId = Number(notId.join('').substr(0, 10));
 
-        times[this.list().name] = new Date().getTime();
+    if (!times[this.list()._id]) {
 
-        Meteor.call('userNotification', 'Добавлен пункт "'+$input.val()+'"', 'Список "'+this.list().name+'"', this.list().userId, this.list().name);
+        times[this.list()._id] = new Date().getTime();
+
+        Meteor.call('userNotification', 'Добавлен пункт "'+$input.val()+'"', 'Список "'+this.list().name+'"', this.list().userId, notId);
 
     } else {
 
         var time_this = new Date().getTime();
 
-        if (time_this - times[this.list().name] > 1000*60*1){
+        if (time_this - times[this.list()._id] > 1000*60*3){
 
-            times[this.list().name] = new Date().getTime();
+            times[this.list()._id] = new Date().getTime();
 
-            Meteor.call('userNotification', 'Добавлен пункт "'+$input.val()+'"', 'Список "'+this.list().name+'"', this.list().userId, this.list().name);
+            Meteor.call('userNotification', 'Добавлен пункт "'+$input.val()+'"', 'Список "'+this.list().name+'"', this.list().userId, notId);
 
         }
     }

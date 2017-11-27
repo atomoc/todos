@@ -31,7 +31,7 @@ Meteor.startup(() => {
         badge: true,
         sound: true,
         vibrate: true,
-        clearNotifications: true,
+        //clearNotifications: true,
         // icon: '',
         // iconColor: '#990000'
       }
